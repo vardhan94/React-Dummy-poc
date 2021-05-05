@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import history from './history';
+import {withRouter} from 'react-router-dom';
 
-function App() {
+
+
+
+
+function App(props) {
+
+  const [valid, setValid] = React.useState(false);
+
+
+const handleLogin = (event) => {
+  event.preventDefault();
+if(event.target.elements[1].value === 'harsh123') {
+history.push('/home');
+}
+else setValid(true);
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {valid ? 
+      <>
+      <h1>Incorrect username or password!!!!</h1>
+      </>
+      :
+      <>
+      <h1>Harsh React App</h1>
+     <form onSubmit={e => handleLogin(e)}>
+       Username: 
+       <input type="text" label="Username" /><br/><br/>
+       password: 
+       <input type="password" />
+       <br/><br/>
+       <input type="submit" />
+       </form>
+       </>
+}
+
     </div>
   );
 }
 
-export default App;
+
+export default withRouter(App);
+
